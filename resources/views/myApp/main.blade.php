@@ -21,23 +21,23 @@
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td><input class="data" type="text"></td>
-      <td><input class="data" type="text"></td>
-      <td><input class="data" type="text"></td>
+      <td><input class="data" type="text" value="0"></td>
+      <td><input class="data" type="text" value="0"></td>
+      <td><input class="data" type="text" value="0"></td>
       <td class="data d-none">@</td>
     </tr>
     <tr>
       <th scope="row">2</th>
-      <td><input class="data" type="text"></td>
-      <td><input class="data" type="text"></td>
-      <td><input class="data" type="text"></td>
+      <td><input class="data" type="text" value="0"></td>
+      <td><input class="data" type="text" value="0"></td>
+      <td><input class="data" type="text" value="0"></td>
       <td class="data d-none">@</td>
     </tr>
     <tr>
       <th scope="row">3</th>
-      <td><input class="data" type="text"></td>
-      <td><input class="data" type="text"></td>
-      <td><input class="data" type="text"></td>
+      <td><input class="data" type="text" value="0"></td>
+      <td><input class="data" type="text" value="0"></td>
+      <td><input class="data" type="text" value="0"></td>
       <td class="data d-none">@</td>
     </tr>
   </tbody>
