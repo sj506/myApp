@@ -24,7 +24,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/', [mainController::class, 'index'])->name('main');
+Route::get('/', [mainController::class, 'index'])->name('main')->middleware(['auth']);
 Route::post("/toggleClick", [mainController::class, 'toggleClick'])->name('toggleClick');
 
 

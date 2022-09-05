@@ -18,7 +18,18 @@
             <a class="nav-link" href="{{ route('login') }}">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('register') }}">register</a>
+            <a class="nav-link" href="{{ route('register') }}">Register</a>
+          </li>
+          <li class="nav-item">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <x-responsive-nav-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();"
+                                        class="nav-link">
+                        {{ __('Log Out') }}
+                    </x-responsive-nav-link>
+                </form>
           </li>
         </ul>
         <form class="d-flex mt-3" role="search">
