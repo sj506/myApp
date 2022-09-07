@@ -32,6 +32,7 @@ class mainController extends Controller
         public function table()
     {
         //
+        
         return view('myApp.table');
     }
     /**
