@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Models\rows;
 
 class mainController extends Controller
 {
@@ -15,7 +17,15 @@ class mainController extends Controller
     public function index()
     {
         //
-        return view('myApp.main');
+        $columns = DB::table('columns')
+                ->where('i_user',Auth::user()->id)
+                ->get();
+        $rows = DB::table('rows')
+                ->where('i_user',Auth::user()->id)
+                ->get();
+
+
+        return view('myApp.main',compact('columns' , 'rows'));
     }
 
     /**
@@ -84,9 +94,22 @@ class mainController extends Controller
         //
     }
     
-    public function toggleClick(Request $request) {
-        $idx = $request->input('idx');
+    public function savetable(Request $request) {
+        if(count($request['newData']) > 1) {
+            foreach ($request['newData'] as $item) {
+                # code...
+                rows::create([
+                    'row' => $item,
+                    'i_user' => Auth::user()->id,
+                ]); 
+            }} 
+        else {
+            rows::create([
+                'row' => $request['newData'][0],
+                'i_user' => Auth::user()->id,
+            ]);
+        }
+        return redirect()->route('main');
 
-        return $idx;
     }
 }
