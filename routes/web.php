@@ -25,6 +25,7 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::get('/', [mainController::class, 'index'])->name('main')->middleware(['auth']);
+Route::get('/table', [mainController::class, 'table'])->name('table');
 Route::post("/savetable", [mainController::class, 'savetable'])->name('savetable');
 
 

@@ -28,6 +28,12 @@ class mainController extends Controller
         return view('myApp.main',compact('columns' , 'rows'));
     }
 
+
+        public function table()
+    {
+        //
+        return view('myApp.table');
+    }
     /**
      * Show the form for creating a new resource.
      *
