@@ -2,47 +2,43 @@
 
 @section('content')
 
-<div class="table-responsive">
-<table class="table align-items-center table-flush" id="export-dt">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+    <div class="text-center">
+        <h1>To do List</h1>
+    </div>  
+<ul class="list-group">
+  <li class="list-group-item ">
+    <input class="form-check-input me-1 checkbox" type="checkbox" value="0" id="firstCheckbox">
+    <label class="form-check-label" for="firstCheckbox">오늘 할일 - 1</label>
+  </li>
+  <li class="list-group-item ">
+    <input class="form-check-input me-1 checkbox" type="checkbox" value="0" id="secondCheckbox">
+    <label class="form-check-label" for="secondCheckbox">오늘 할일 - 2</label>
+  </li>
+  <li class="list-group-item ">
+    <input class="form-check-input me-1 checkbox" type="checkbox" value="0" id="thirdCheckbox">
+    <label class="form-check-label" for="thirdCheckbox">오늘 할일 - 3</label>
+  </li>
+  <li class="list-group-item ">
+    <input class="form-check-input me-1 checkbox" type="checkbox" value="0" id="thirdCheckbox">
+    <label class="form-check-label" for="thirdCheckbox"><input type="text"></label>
+  </li>
+</ul>
+    <button type="button" class="btn btn-outline-secondary h-30 mt-3" onclick="addList()"><i class="fa-solid fa-plus"></i></button>
 </div>
 
 <script>
-        $("#export-dt").DataTable({
-            ajax: {url: "data.json" , dataSrc: '' },
-            columns : [
-                {data: "id"},
-                {data: "name"},
-                {data: "location"},
-            ]
-        });
+    const checkbox = document.querySelectorAll(".checkbox");
+    checkbox.forEach(ele => {
+        // console.log(ele.addEventListener);
+       ele.addEventListener("change", function (e) {
+         e.target.value = Math.abs(e.target.value - 1)
+         if (e.target.value == 1) {
+            e.target.parentNode.classList = 'list-group-item bg-dark text-dark bg-opacity-10 text-black-50'
+         } else {
+            e.target.parentNode.classList = 'list-group-item'
+         }
+       }); 
+    });
 </script>
-
 @endsection
