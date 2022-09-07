@@ -28,7 +28,20 @@
 </div>
 
 <script>
-    const checkbox = document.querySelectorAll(".checkbox");
+
+
+    function addList() {
+        const listGroup = document.querySelector(".list-group");
+        const newList = document.createElement("li");
+        newList.classList.add('list-group-item')
+        listGroup.appendChild(newList);
+        newList.innerHTML = `
+        <input class="form-check-input me-1 checkbox" type="checkbox" value="0" id="thirdCheckbox">
+        <label class="form-check-label" for="thirdCheckbox"><input type="text"></label>
+        `;
+    }
+
+        const checkbox = document.querySelectorAll(".checkbox");
     checkbox.forEach(ele => {
         // console.log(ele.addEventListener);
        ele.addEventListener("change", function (e) {
