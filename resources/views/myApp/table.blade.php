@@ -4,31 +4,65 @@
 
 <div class="container">
     <div class="text-center">
-        <h1>To do List</h1>
+        <h1 class="mb-4">My feed</h1>
     </div>  
+  <form action={{ route('insTodoList') }} method="post">
+    @csrf
 <ul class="list-group">
-  <li class="list-group-item ">
-    <input class="form-check-input me-1 checkbox" type="checkbox" value="0" id="firstCheckbox">
-    <label class="form-check-label" for="firstCheckbox">오늘 할일 - 1</label>
+  @foreach ($data as $item)
+  <li class="d-flex justify-content-between list-group-item ">
+    <div>
+      <input class="form-check-input me-1 checkbox" type="checkbox" value="0" id="thirdCheckbox" data-todoList="{{ $item->i_todo_list }}">
+      <label class="form-check-label" for="thirdCheckbox">{{ $item->todo_list }}</label>
+    </div>
+    <div>
+    <span class="text-muted me-4">{{ substr($item->created_at,0,10) }}</span>
+    </div>
   </li>
+  @endforeach
   <li class="list-group-item ">
-    <input class="form-check-input me-1 checkbox" type="checkbox" value="0" id="secondCheckbox">
-    <label class="form-check-label" for="secondCheckbox">오늘 할일 - 2</label>
-  </li>
-  <li class="list-group-item ">
-    <input class="form-check-input me-1 checkbox" type="checkbox" value="0" id="thirdCheckbox">
-    <label class="form-check-label" for="thirdCheckbox">오늘 할일 - 3</label>
-  </li>
-  <li class="list-group-item ">
-    <input class="form-check-input me-1 checkbox" type="checkbox" value="0" id="thirdCheckbox">
-    <label class="form-check-label" for="thirdCheckbox"><input type="text"></label>
+    <input class="form-check-input me-1" type="checkbox" value="0" id="thirdCheckbox">
+    <label class="form-check-label" for="thirdCheckbox"><input name="todo_list[]" type="text"></label>
   </li>
 </ul>
-    <button type="button" class="btn btn-outline-secondary h-30 mt-3" onclick="addList()"><i class="fa-solid fa-plus"></i></button>
+    <div>
+      <button type="button" class="btn btn-outline-secondary h-30 mt-3" onclick="addList()"><i class="fa-solid fa-plus"></i></button>
+      <button type="submit" class="btn btn-outline-secondary h-30 mt-3">저장</button>
+      <button type="button" class="btn btn-outline-secondary h-30 mt-3" id="delListBtn" onclick="delList()">삭제</button>
+    </div>
+  </form>
 </div>
 
 <script>
 
+  function delList() {
+    const checkbox = document.querySelectorAll(".checkbox");
+    checkbox.forEach(ele => {
+        // console.log(ele.addEventListener);
+         if (ele.value == 1) {
+            // console.log(ele.dataset.todolist); 
+                $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                url: "{{ route('delTodoList') }}",
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    'i_todo_list' : ele.dataset.todolist,
+                },
+                success: function(result) {
+                    console.log(result)
+                    if(result) {
+                      ele.parentNode.parentNode.classList = 'd-none'
+                    }
+                },
+                error:function(request,status,error){
+                    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                    alert('리스트를 삭제할 수 없습니다.')
+                }
+            });
+        }
+       }); 
+    };
 
     function addList() {
         const listGroup = document.querySelector(".list-group");
@@ -37,19 +71,19 @@
         listGroup.appendChild(newList);
         newList.innerHTML = `
         <input class="form-check-input me-1 checkbox" type="checkbox" value="0" id="thirdCheckbox">
-        <label class="form-check-label" for="thirdCheckbox"><input type="text"></label>
+        <label class="form-check-label" for="thirdCheckbox"><input name="todo_list[]" type="text"></label>
         `;
     }
 
-        const checkbox = document.querySelectorAll(".checkbox");
+    const checkbox = document.querySelectorAll(".checkbox");
     checkbox.forEach(ele => {
         // console.log(ele.addEventListener);
        ele.addEventListener("change", function (e) {
          e.target.value = Math.abs(e.target.value - 1)
          if (e.target.value == 1) {
-            e.target.parentNode.classList = 'list-group-item bg-dark text-dark bg-opacity-10 text-black-50'
+            e.target.parentNode.parentNode.classList = 'd-flex justify-content-between list-group-item bg-dark text-dark bg-opacity-10 text-black-50'
          } else {
-            e.target.parentNode.classList = 'list-group-item'
+            e.target.parentNode.parentNode.classList = 'd-flex justify-content-between list-group-item'
          }
        }); 
     });

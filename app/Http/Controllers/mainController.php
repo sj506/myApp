@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\rows;
+use App\Models\table;
 
 class mainController extends Controller
 {
@@ -32,8 +33,34 @@ class mainController extends Controller
         public function table()
     {
         //
+        $data = DB::table('tables')
+                ->where('i_user',Auth::user()->id)
+                ->get();
         
-        return view('myApp.table');
+        return view('myApp.table',compact('data'));
+    }
+
+    
+        public function insTodoList(Request $request)
+    {
+        //
+        // dd($request['todo_list']);
+            foreach ($request['todo_list'] as $item) {
+                # code...
+                table::create([
+                    'todo_list' => $item,
+                    'i_user' => Auth::user()->id,
+                ]); 
+            }
+        return redirect()->route('table');
+
+    }
+
+            public function brickBreaker()
+    {
+
+        
+        return view('myApp.brickBreaker');
     }
     /**
      * Show the form for creating a new resource.
@@ -100,23 +127,26 @@ class mainController extends Controller
     {
         //
     }
+
+        public function delTodoList(Request $request)
+    {
+        //
+        $delList = DB::table('tables')
+        ->where('i_todo_list',$request->i_todo_list)
+        ->where('i_user',Auth::user()->id)
+        ->delete();
+
+        return $delList;
+    }
     
     public function savetable(Request $request) {
-        if(count($request['newData']) > 1) {
             foreach ($request['newData'] as $item) {
                 # code...
                 rows::create([
                     'row' => $item,
                     'i_user' => Auth::user()->id,
                 ]); 
-            }} 
-        else {
-            rows::create([
-                'row' => $request['newData'][0],
-                'i_user' => Auth::user()->id,
-            ]);
-        }
+            }
         return redirect()->route('main');
-
     }
 }

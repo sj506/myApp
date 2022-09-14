@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-warning fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">My app</a>
+    <a class="navbar-brand ms-4" href="/">My app</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -19,6 +19,12 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('register') }}">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('table') }}">My feed</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('brickBreaker') }}">벽돌깨기</a>
           </li>
           <li class="nav-item">
                 <form method="POST" action="{{ route('logout') }}">
