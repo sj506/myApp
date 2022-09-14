@@ -27,7 +27,7 @@
     <label class="form-check-label" for="thirdCheckbox"><input name="todo_list[]" type="text"></label>
   </li>
 </ul>
-    <div>
+    <div class="btn-group">
       <button type="button" class="btn btn-outline-secondary h-30 mt-3" onclick="addList()"><i class="fa-solid fa-plus"></i></button>
       <button type="submit" class="btn btn-outline-secondary h-30 mt-3">저장</button>
       <button type="button" class="btn btn-outline-secondary h-30 mt-3" id="delListBtn" onclick="delList()">삭제</button>
@@ -37,6 +37,16 @@
 
 <script>
 
+function todayDate() {
+                  let today = new Date();
+
+                  let month = ('0' + (today.getUTCMonth() + 1)).slice(-2); //months from 1-12
+                  
+                  let day = today.getUTCDate();
+                  let year = today.getUTCFullYear();
+
+                  return today = year + "-" + month + "-" + day;
+                    }
 
 function test(e) {
             $.ajax({
@@ -49,7 +59,15 @@ function test(e) {
                 },
                 success: function(result) {
                   const ul = document.querySelector('.list-group')
+                  const btnGroup = document.querySelector('.btn-group')
                   ul.innerHTML = null;
+                  console.log(todayDate());
+                  console.log(result.data[0].created_at.substr(0,10));
+                  if(result.data[0].created_at.substr(0,10) !== todayDate()) {
+                  btnGroup.classList.add('d-none');
+                  } else {
+                  btnGroup.classList.remove('d-none');
+                  }
                   result.data.forEach(item => {
                     // console.log(item);
                     const li = document.createElement('li');
