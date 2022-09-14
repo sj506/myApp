@@ -17,30 +17,30 @@
 <canvas id="myCanvas" height="320" width="480" class="mt-5"></canvas>
 
 <script>
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
-var ballRadius = 10;
-var x = canvas.width / 2;
-var y = canvas.height - 30;
-var dx = 2;
-var dy = -2;
-var paddleHeight = 10;
-var paddleWidth = 75;
-var paddleX = (canvas.width - paddleWidth) / 2;
-var rightPressed = false;
-var leftPressed = false;
-var brickRowCount = 3;
-var brickColumnCount = 5;
-var brickWidth = 75;
-var brickHeight = 20;
-var brickPadding = 10;
-var brickOffsetTop = 30;
-var brickOffsetLeft = 30;
+let canvas = document.getElementById("myCanvas");
+let ctx = canvas.getContext("2d");
+let ballRadius = 10;
+let x = canvas.width / 2;
+let y = canvas.height - 30;
+let dx = 2;
+let dy = -2;
+let paddleHeight = 10;
+let paddleWidth = 75;
+let paddleX = (canvas.width - paddleWidth) / 2;
+let rightPressed = false;
+let leftPressed = false;
+let brickRowCount = 3;
+let brickColumnCount = 5;
+let brickWidth = 75;
+let brickHeight = 20;
+let brickPadding = 10;
+let brickOffsetTop = 30;
+let brickOffsetLeft = 30;
 
-var bricks = [];
-for (var c = 0; c < brickColumnCount; c++) {
+let bricks = [];
+for (let c = 0; c < brickColumnCount; c++) {
     bricks[c] = [];
-    for (var r = 0; r < brickRowCount; r++) {
+    for (let r = 0; r < brickRowCount; r++) {
         bricks[c][r] = { x: 0, y: 0, status: 1 };
     }
 }
@@ -66,9 +66,9 @@ function keyUpHandler(e) {
     }
 }
 function collisionDetection() {
-    for (var c = 0; c < brickColumnCount; c++) {
-        for (var r = 0; r < brickRowCount; r++) {
-            var b = bricks[c][r];
+    for (let c = 0; c < brickColumnCount; c++) {
+        for (let r = 0; r < brickRowCount; r++) {
+            let b = bricks[c][r];
             if (b.status == 1) {
                 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
                     dy = -dy;
@@ -93,11 +93,11 @@ function drawPaddle() {
     ctx.closePath();
 }
 function drawBricks() {
-    for (var c = 0; c < brickColumnCount; c++) {
-        for (var r = 0; r < brickRowCount; r++) {
+    for (let c = 0; c < brickColumnCount; c++) {
+        for (let r = 0; r < brickRowCount; r++) {
             if (bricks[c][r].status == 1) {
-                var brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
-                var brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
+                let brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
+                let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
@@ -147,6 +147,6 @@ function draw() {
     y += dy;
 }
 
-var interval = setInterval(draw, 10);
+let interval = setInterval(draw, 10);
 
 </script>

@@ -3,8 +3,10 @@
 @section('content')
 
 <div class="container">
-    <div class="text-center">
+    <div class="d-flex justify-content-between align-items-center text-center">
+        <div></div>
         <h1 class="mb-4">My feed</h1>
+        <input id="searchDate" name="date" class="h-50" type="date" onchange="test(event.target)" value={{ date("Y-m-d", time()) }}>
     </div>  
   <form action={{ route('insTodoList') }} method="post">
     @csrf
@@ -34,6 +36,60 @@
 </div>
 
 <script>
+
+
+function test(e) {
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                url: "{{ route('Chtable') }}",
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    '_date' : e.value,
+                },
+                success: function(result) {
+                  const ul = document.querySelector('.list-group')
+                  ul.innerHTML = null;
+                  result.data.forEach(item => {
+                    // console.log(item);
+                    const li = document.createElement('li');
+                    li.classList = 'd-flex justify-content-between list-group-item'
+                    li.innerHTML = `
+                          <div>
+                            <input class="form-check-input me-1 checkbox" type="checkbox" value="0" id="thirdCheckbox" data-todoList="${item.i_todo_list}">
+                            <label class="form-check-label" for="thirdCheckbox">${item.todo_list}</label>
+                          </div>
+                          <div>
+                          <span class="text-muted me-4">${item.created_at.substr(0,10)}</span>
+                          </div>
+                    `;
+                  ul.appendChild(li)
+                  });
+                },
+                error:function(request,status,error){
+                    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                }
+            });
+}
+// const date = document.querySelector('#searchDate')
+
+// date.addEventListener('change' , function (e) {
+//               $.ajax({
+//                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+//                 url: "{{ route('table') }}",
+//                 method: 'POST',
+//                 dataType: 'json',
+//                 data: {
+//                     '_date' : e.target.value,
+//                 },
+//                 success: function(result) {
+//                     console.log(result)
+//                 },
+//                 error:function(request,status,error){
+//                     console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+//                 }
+//             });
+// })
 
   function delList() {
     const checkbox = document.querySelectorAll(".checkbox");

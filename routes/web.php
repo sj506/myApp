@@ -26,6 +26,7 @@ require __DIR__.'/auth.php';
 
 Route::get('/', [mainController::class, 'index'])->name('main')->middleware(['auth']);
 Route::get('/table', [mainController::class, 'table'])->name('table');
+Route::post('/Chtable', [mainController::class, 'Chtable'])->name('Chtable');
 Route::get('/brickBreaker', [mainController::class, 'brickBreaker'])->name('brickBreaker');
 Route::post("/savetable", [mainController::class, 'savetable'])->name('savetable');
 Route::post("/insTodoList", [mainController::class, 'insTodoList'])->name('insTodoList');

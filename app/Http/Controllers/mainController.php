@@ -30,14 +30,35 @@ class mainController extends Controller
     }
 
 
-        public function table()
+        public function table(Request $request)
     {
         //
+        $test = $request->_date ? $request->_date : date("Y-m-d", time());
         $data = DB::table('tables')
-                ->where('i_user',Auth::user()->id)
+                ->where('i_user', Auth::user()->id)
+                ->where('created_at','like', date("Y-m-d", time()) . '%')
                 ->get();
         
         return view('myApp.table',compact('data'));
+        // return date("Y-m-d", time());
+    }
+
+    public function Chtable(Request $request)
+    {
+        //
+        $date = $request->_date ? $request->_date : date("Y-m-d", time());
+        $data = DB::table('tables')
+                ->where('i_user', Auth::user()->id)
+                ->where('created_at','like', $date . '%')
+                ->get();
+        
+        // return redirect()->route('table', ['data' => $data]);
+        // return view('myApp.table',compact('data'));
+        return response()->json([
+            'data' => $data,
+        ]);
+
+        // return $data;
     }
 
     

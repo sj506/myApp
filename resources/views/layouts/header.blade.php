@@ -24,7 +24,7 @@
             <a class="nav-link" href="{{ route('table') }}">My feed</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('brickBreaker') }}">벽돌깨기</a>
+            <a class="nav-link" href="{{ route('brickBreaker') }}">brick Breaker</a>
           </li>
           <li class="nav-item">
                 <form method="POST" action="{{ route('logout') }}">
